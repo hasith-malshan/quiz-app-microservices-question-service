@@ -2,11 +2,13 @@ package com.hasith.questionservice.service;
 
 import com.hasith.questionservice.dao.QuestionDao;
 import com.hasith.questionservice.entities.Question;
+import com.hasith.questionservice.entities.QuestionWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,5 +49,34 @@ public class QuestionService {
         }
         return new ResponseEntity<>(Collections.EMPTY_LIST, HttpStatus.BAD_REQUEST);
 
+    }
+
+    public ResponseEntity<List<Integer>> getQuestionsForQuiz(String categoryName, String numberOfQuestions) {
+        List<Integer> questions = questionDao.findRandomQuestionByCategory(categoryName, Integer.parseInt(numberOfQuestions));
+
+        return new ResponseEntity<>(questions,HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(List<Integer> questionIds) {
+        List<QuestionWrapper> wrappers = new ArrayList<>();
+        List<Question> questions = new ArrayList<>();
+
+        for (Integer id : questionIds){
+            questions.add(questionDao.findById(id).get());
+        }
+
+        for (Question question : questions){
+            QuestionWrapper questionWrapper = new QuestionWrapper();
+            questionWrapper.setId(question.getId());
+            questionWrapper.setQuestionTitle(question.getQuestionTitle());
+            questionWrapper.setOption1(question.getOption1());
+            questionWrapper.setOption2(question.getOption2());
+            questionWrapper.setOption3(question.getOption3());
+            questionWrapper.setOption4(question.getOption4());
+
+            wrappers.add(questionWrapper);
+        }
+
+        return new ResponseEntity<>(wrappers,HttpStatus.OK);
     }
 }

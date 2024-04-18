@@ -2,6 +2,7 @@ package com.hasith.questionservice.controller;
 
 
 import com.hasith.questionservice.entities.Question;
+import com.hasith.questionservice.entities.QuestionWrapper;
 import com.hasith.questionservice.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,21 @@ public class QuestionController {
     public ResponseEntity addQuestion(@RequestBody Question question){
         questionService.addQuestion(question);
         return new ResponseEntity<>("Question Added", HttpStatus.CREATED);
+    }
+
+    @GetMapping("generate")
+    public ResponseEntity<List<Integer>> getQuestionsForQuiz(
+            @RequestParam String categoryName,
+            @RequestParam String numberOfQuestions
+    ){
+        return questionService.getQuestionsForQuiz(categoryName,numberOfQuestions);
+    }
+
+    @PostMapping("get-questions")
+    public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(
+            @RequestBody List<Integer> questionIds
+    ){
+        return questionService.getQuestionsFromId(questionIds);
     }
 
 }
