@@ -1,7 +1,8 @@
 package com.hasith.questionservice.controller;
 
-import com.hasith.quizapp.entities.Question;
-import com.hasith.quizapp.service.QuestionService;
+
+import com.hasith.questionservice.entities.Question;
+import com.hasith.questionservice.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

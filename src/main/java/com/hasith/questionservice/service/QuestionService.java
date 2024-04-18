@@ -1,7 +1,7 @@
 package com.hasith.questionservice.service;
 
-import com.hasith.quizapp.dao.QuestionDao;
-import com.hasith.quizapp.entities.Question;
+import com.hasith.questionservice.dao.QuestionDao;
+import com.hasith.questionservice.entities.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
